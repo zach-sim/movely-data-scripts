@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+data = JSON.parse(File.read('./db/areaUnits.geojson.json')); 0
+data['features'].each do |row|
+  shape = RGeo::GeoJSON.decode(row['geometry'])
+  AreaUnit.find_or_initialize_by(id: row['properties']['AU_NO']).update!(
+    name: row['properties']['AU_NAME'],
+    shape: shape,
+  )
+end

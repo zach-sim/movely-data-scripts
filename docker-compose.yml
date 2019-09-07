@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  postgres:
+    image: 'mdillon/postgis'
+    environment:
+      POSTGRES_USER: 'docker'
+      POSTGRES_PASSWORD: 'docker'
+    ports:
+      - '5440:5432'
+    volumes:
+      - 'postgis:/var/lib/postgresql/data'
+
+volumes:
+  postgis:
